@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <title>Title</title>
+    <script>
+        function initializeTable () {
+            $("table th").css("background-color", "aqua");
+            $("table td").css("background-color", "aquamarine");
+
+            var thl = $(".table_head_left");
+            var thr = $(".table_head_right");
+            var tbl = $(".table_body_left");
+            var tbr = $(".table_body_right");
+            var dhl = $(".div_head_left");
+            var dhr = $(".div_head_right");
+            var dbl = $(".div_body_left");
+            var dbr = $(".div_body_right");
+
+            //左上
+            dhl.css("position", "absolute");
+            thl.css("height", thr.outerHeight());
+            thl.css("width", tbl.outerWidth());
+            dhl.css("overflow-y", "hidden");
+            dhl.css("overflow-x", "scroll");
+
+            //右上
+            dhr.css("position", "absolute");
+            dhr.css("top", thl.offset().top);
+            dhr.css("left", dhl.offset().left + 100);
+            dhr.css("overflow-x", "hidden");
+
+            //左下
+            dbl.css("position", "absolute");
+            dbl.css("top", thl.offset().top + thl.outerHeight());
+            dbl.css("overflow-y", "hidden");
+            dbl.css("overflow-x", "scroll");
+
+            //右下
+            dbr.css("position", "absolute");
+            dbr.css("top", thl.offset().top + thr.outerHeight());
+            dbr.css("left", dhl.offset().left + 100);
+            dbr.css("overflow-x", "scroll");
+            dbr.css("overflow-y", "scroll");
+
+            if (thr.width() > tbr.width()) {
+                //ボディ幅をヘッダ幅に合わせる
+                tbr.width(thr.width());
+            } else {
+                thr.width(tbr.width());
+            }
+
+            //scroll連動
+            dbr.scroll(function(){
+                dhr.scrollLeft($(this).scrollLeft());
+                dbl.scrollTop($(this).scrollTop());
+            });
+
+            dbl.scroll(function(){
+                dhl.scrollLeft($(this).scrollLeft());
+            });
+
+            //画面広さ制限模
+            var scrollbarwidth = window.innerWidth - document.body.clientWidth;
+            //dhr.width(tbr.width()/2);
+            //dbr.width(tbr.width()/2+scrollbarwidth);
+            dhr.width(150);
+            dbr.width(150+scrollbarwidth);
+            dhl.width(100);
+            dbl.width(100);
+            thl.width(300);
+            tbl.width(300);
+            dbl.height(100);
+            dbr.height(100);
+        }
+        $(initializeTable);
+    </script>
+</head>
+<body>
+<div class="div_head_left">
+    <table class="table_head_left">
+        <tr>
+            <th>11111111111111111111</th>
+        </tr>
+    </table>
+</div>
+<div class="div_head_right">
+    <table class="table_head_right">
+        <tr>
+            <th>hogehoge</th>
+        </tr>
+    </table>
+</div>
+<div class="div_body_left">
+    <table class="table_body_left">
+        <tr>
+            <th>11111111111111111111</td>
+        </tr>
+        <tr>
+            <th>2</th>
+        </tr>
+        <tr>
+            <th>3</td>
+        </tr>
+        <tr>
+            <th>4</th>
+        </tr>
+        <tr>
+            <th>11111111111111111111</td>
+        </tr>
+        <tr>
+            <th>2</th>
+        </tr>
+        <tr>
+            <th>3</td>
+        </tr>
+        <tr>
+            <th>4</th>
+        </tr>
+   </table>
+</div>
+<div class="div_body_right">
+    <table class="table_body_right">
+        <tr>
+            <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+        </tr>
+        <tr>
+            <td>b</td>
+        </tr>
+        <tr>
+            <td>c</td>
+        </tr>
+        <tr>
+            <td>d</td>
+        </tr>
+        <tr>
+            <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+        </tr>
+        <tr>
+            <td>b</td>
+        </tr>
+        <tr>
+            <td>c</td>
+        </tr>
+        <tr>
+            <td>d</td>
+        </tr>
+   </table>
+</div>
+</body>
+</html>
